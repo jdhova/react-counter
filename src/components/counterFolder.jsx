@@ -3,36 +3,29 @@ import React, { Component } from 'react';
 
 class Counter extends Component {
     state = {
-        value: this.props.counters.value,
-        tags: ["tag1","tag2","tag3"]
+       
+        tags: ["Wig","Braids","Hairextension",'Hairproducts']
     };
 
-    handleIncrement = () => {
-       this.setState({value: this.state.value + 1});
-
-    };
-
-    handleDecrement = () => {
-        this.setState({value: this.state.value - 1});
- 
-     };
 
     render(){ 
         console.log('props', this.props)
         
         return (
+            
             <React.Fragment>
                 {this.props.children}   
                 <h1
                     className= {this.getBadgeClasses()}>{this.newCount()}
                 </h1>
                 <button 
-                    onClick={() => this.handleIncrement()} 
+                    onClick={() => this.props.onIncrement(this.props.counters)} 
                     className= "btn btn-secondary m-3"> Increment
                 </button>  
                 <button 
-                     onClick={() => this.handleDecrement()} 
-                    className= "btn btn-warning m-3"> Decrement
+                     onClick={() => this.props.onDecrement(this.props.counters)} 
+                    className= "btn btn-warning m-3" 
+                    disabled = {this.props.counters.value == 0 ? 'disabled' : ''}> Decrement
                 </button> 
                 <button 
                      onClick={() => this.props.onDelete(this.props.counters.id)} 
@@ -42,7 +35,7 @@ class Counter extends Component {
                     {this.state.tags.length === 0 && " Cart is empty!"}
                </div> 
                <div> 
-                    {this.state.value <= 0 && "Out of Stock!"}
+                    {this.props.counters.value <= 0 && "Out of Stock!"}
                </div> 
 
                 <div>
@@ -58,12 +51,12 @@ class Counter extends Component {
       
     getBadgeClasses() {
         let classes = "badge m-3 md badge-";
-        classes += this.state.value === 0 ? "warning" : "primary";
+        classes += this.props.counters.value === 0 ? "warning" : "primary";
         return classes;
     }
 
      newCount(){
-        const {value} = this.state
+        const {value} = this.props.counters
         return value === 0 ? "Zero": value;
     }
 }
