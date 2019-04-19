@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Counters from './components/counter';
 import Navbar from './components/navbar';
-import { throws } from 'assert';
+// import { throws } from 'assert';
 
 class App extends Component {
     
